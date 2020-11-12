@@ -1,9 +1,0 @@
-
-//Test get route on capital endpoint.
-# GET http://localhost:3000/capital?country=latvia HTTP/1.1
-# Accept: : application/json
-
-
-//Test post route on excel-sum endpoint.
-POST http://localhost:3000/excel-sum HTTP/1.1
-
