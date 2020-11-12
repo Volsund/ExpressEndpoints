@@ -10,7 +10,7 @@ app.use("/capital", capital);
 app.use("/excel-sum", sum);
 
 app.get("/", function (req, res) {
-    res.send("Hello, World!");
+  res.send("Hello, World!");
 });
 
 module.exports = app;
