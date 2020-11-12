@@ -1,9 +1,10 @@
 const express = require("express");
+const accepts = require("accepts");
 const router = express.Router();
 const { getXlsxStream } = require("xlstream");
 
 router.get("/", function (req, res) {
-    res.send(`GET route on Excel - Sum`);
+    res.send(`GET route on Excel-Sum. You are probably more interested in POST route...`);
 });
 
 router.post("/", async function (req, res) {
@@ -22,9 +23,23 @@ router.post("/", async function (req, res) {
         });
     });
 
+    let accept = accepts(req);
+
     let result = nums.reduce((a, b) => a + b, 0);
 
-    res.send(`SUM is ${result}`);
+    switch (accept.type(["json", "html"])) {
+        case "json":
+            res.json({ SUM: result });
+            break;
+        case "html":
+            res.setHeader("Content-Type", "text/html");
+            res.send(`<b>SUM is ${result}</b>`);
+            break;
+        default:
+            res.setHeader("Content-Type", "text/plain");
+            res.send(`SUM is ${result}`);
+            break;
+    }
 });
 
 module.exports = router;

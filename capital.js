@@ -12,20 +12,21 @@ router.get("/", function (req, res) {
     let result = found.city;
     let accept = accepts(req);
 
+    let responseObj = {};
+    let country = requestedCountry;
+    responseObj[country] = result;
+
     switch (accept.type(["json", "html"])) {
         case "json":
-            res.setHeader("Content-Type", "application/json");
-            res.write(`{"${requestedCountry}":"${result}"}`);
+            res.json(responseObj);
             break;
         case "html":
             res.setHeader("Content-Type", "text/html");
-            res.write(
-                `<b>The capital of ${requestedCountry} is ${result}!</b>`
-            );
+            res.send(`<b>The capital of ${requestedCountry} is ${result}!</b>`);
             break;
         default:
             res.setHeader("Content-Type", "text/plain");
-            res.write(`The capital of ${requestedCountry} is ${result}!`);
+            res.send(`The capital of ${requestedCountry} is ${result}!`);
             break;
     }
 });
